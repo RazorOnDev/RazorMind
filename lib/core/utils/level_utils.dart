@@ -42,6 +42,10 @@ class LevelUtils {
     return titles[idx];
   }
 
+  // Convenience wrappers that accept raw XP instead of level
+  static int xpForCurrentLevel(int xp) => getXpForLevel(getLevel(xp));
+  static int xpForNextLevel(int xp) => getXpForNextLevel(getLevel(xp));
+
   static int calculateXpReward({
     required int correctAnswers,
     required int totalQuestions,
