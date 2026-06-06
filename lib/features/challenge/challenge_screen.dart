@@ -5,10 +5,12 @@ import 'package:go_router/go_router.dart';
 import 'package:razor_mind/core/constants/app_colors.dart';
 import 'package:razor_mind/core/constants/app_strings.dart';
 import 'package:razor_mind/core/utils/level_utils.dart';
+import 'package:razor_mind/data/models/question.dart';
 import 'package:razor_mind/data/providers/progress_provider.dart';
+import 'package:razor_mind/data/providers/question_provider.dart';
 
 // ---------------------------------------------------------------------------
-// Minimal inline question model for the challenge
+// Minimal view model for challenge questions
 // ---------------------------------------------------------------------------
 
 class _Question {
@@ -16,77 +18,30 @@ class _Question {
   final List<String> options;
   final int correctIndex;
   final String category;
+  final String explanation;
+  final int xpReward;
 
   const _Question({
     required this.question,
     required this.options,
     required this.correctIndex,
     required this.category,
+    required this.explanation,
+    required this.xpReward,
   });
-}
 
-const _sampleQuestions = [
-  _Question(
-    question: '¿En qué año llegó el ser humano por primera vez a la Luna?',
-    options: ['1965', '1969', '1972', '1961'],
-    correctIndex: 1,
-    category: 'history',
-  ),
-  _Question(
-    question: '¿Cuál es el planeta más grande del sistema solar?',
-    options: ['Saturno', 'Urano', 'Júpiter', 'Neptuno'],
-    correctIndex: 2,
-    category: 'science',
-  ),
-  _Question(
-    question: '¿Cuál es la capital de Australia?',
-    options: ['Sídney', 'Melbourne', 'Brisbane', 'Canberra'],
-    correctIndex: 3,
-    category: 'geography',
-  ),
-  _Question(
-    question: '¿Quién pintó la Capilla Sixtina?',
-    options: ['Leonardo da Vinci', 'Rafael', 'Botticelli', 'Miguel Ángel'],
-    correctIndex: 3,
-    category: 'art',
-  ),
-  _Question(
-    question: '¿En qué año fue fundada la empresa Apple?',
-    options: ['1974', '1976', '1980', '1984'],
-    correctIndex: 1,
-    category: 'tech',
-  ),
-  _Question(
-    question: '¿Quién escribió "El origen de las especies"?',
-    options: ['Isaac Newton', 'Albert Einstein', 'Charles Darwin', 'Gregor Mendel'],
-    correctIndex: 2,
-    category: 'science',
-  ),
-  _Question(
-    question: '¿Cuántos países conforman África?',
-    options: ['48', '52', '54', '57'],
-    correctIndex: 2,
-    category: 'geography',
-  ),
-  _Question(
-    question: '¿Quién propuso la teoría de la relatividad especial?',
-    options: ['Nikola Tesla', 'Albert Einstein', 'Max Planck', 'Niels Bohr'],
-    correctIndex: 1,
-    category: 'science',
-  ),
-  _Question(
-    question: '¿En qué siglo vivió Sócrates?',
-    options: ['Siglo IV a.C.', 'Siglo V a.C.', 'Siglo III a.C.', 'Siglo VI a.C.'],
-    correctIndex: 1,
-    category: 'philosophy',
-  ),
-  _Question(
-    question: '¿Cuántas lenguas oficiales tiene la ONU?',
-    options: ['4', '5', '6', '7'],
-    correctIndex: 2,
-    category: 'language',
-  ),
-];
+  factory _Question.fromModel(Question q) {
+    final idx = q.options.indexOf(q.correctAnswer);
+    return _Question(
+      question: q.text,
+      options: q.options,
+      correctIndex: idx >= 0 ? idx : 0,
+      category: q.categoryId,
+      explanation: q.explanation,
+      xpReward: q.xpReward,
+    );
+  }
+}
 
 // ---------------------------------------------------------------------------
 // ChallengeScreen
@@ -104,8 +59,20 @@ class _ChallengeScreenState extends ConsumerState<ChallengeScreen> {
   int _score = 0;
   int? _selectedAnswer;
   bool _answered = false;
+  late List<_Question> _questions;
 
-  _Question get _current => _sampleQuestions[_currentIndex];
+  @override
+  void initState() {
+    super.initState();
+    final service = ref.read(questionServiceProvider);
+    final raw = service.getDailyChallenge([]);
+    _questions = raw.map(_Question.fromModel).toList();
+    if (_questions.isEmpty) {
+      _questions = service.getAll().take(10).map(_Question.fromModel).toList();
+    }
+  }
+
+  _Question get _current => _questions[_currentIndex];
 
   void _selectAnswer(int index) {
     if (_answered) return;
@@ -117,7 +84,7 @@ class _ChallengeScreenState extends ConsumerState<ChallengeScreen> {
   }
 
   void _next() {
-    if (_currentIndex < _sampleQuestions.length - 1) {
+    if (_currentIndex < _questions.length - 1) {
       setState(() {
         _currentIndex++;
         _selectedAnswer = null;
@@ -131,19 +98,19 @@ class _ChallengeScreenState extends ConsumerState<ChallengeScreen> {
   Future<void> _finish() async {
     final xpEarned = LevelUtils.calculateXpReward(
       correctAnswers: _score,
-      totalQuestions: _sampleQuestions.length,
+      totalQuestions: _questions.length,
       isStreakActive: ref.read(progressProvider).currentStreak > 0,
     );
     await ref.read(progressProvider.notifier).recordSession(
           xpEarned: xpEarned,
-          questionsAnswered: _sampleQuestions.length,
+          questionsAnswered: _questions.length,
           correctAnswers: _score,
         );
     if (mounted) {
       context.go(
         '/challenge/result'
         '?score=$_score'
-        '&total=${_sampleQuestions.length}'
+        '&total=${_questions.length}'
         '&xpEarned=$xpEarned'
         '&categoryId=general',
       );
@@ -152,7 +119,7 @@ class _ChallengeScreenState extends ConsumerState<ChallengeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final total = _sampleQuestions.length;
+    final total = _questions.length;
     final progress = (_currentIndex + 1) / total;
 
     return Scaffold(
