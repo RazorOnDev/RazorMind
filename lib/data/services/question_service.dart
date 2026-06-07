@@ -3,7 +3,7 @@ import 'package:razor_mind/data/models/question.dart';
 
 class QuestionService {
   // ---------------------------------------------------------------------------
-  // QUESTION BANK — 112 questions across 7 categories
+  // QUESTION BANK — 193 questions across 7 categories
   // ---------------------------------------------------------------------------
 
   static const List<Question> _allQuestions = [
@@ -219,6 +219,209 @@ class QuestionService {
           'Nueva Zelanda fue el primer país en reconocer el derecho al voto femenino en 1893, siendo un hito histórico en la lucha por la igualdad de género.',
       difficulty: 3,
       xpReward: 50,
+    ),
+
+    // =========================================================================
+    // HISTORIA — preguntas adicionales (hist_017 – hist_030)
+    // =========================================================================
+
+    Question(
+      id: 'hist_017',
+      categoryId: 'history',
+      type: 'multiple_choice',
+      text: '¿Cuál era el nombre de la capital del Imperio Azteca?',
+      options: ['Teotihuacán', 'Tenochtitlán', 'Chichén Itzá', 'Tula'],
+      correctAnswer: 'Tenochtitlán',
+      explanation:
+          'Tenochtitlán, fundada en 1325, era la magnífica capital del Imperio Azteca, situada en una isla del lago Texcoco. A su conquista en 1521, Hernán Cortés la transformó en la actual Ciudad de México.',
+      difficulty: 1,
+      xpReward: 10,
+    ),
+    Question(
+      id: 'hist_018',
+      categoryId: 'history',
+      type: 'multiple_choice',
+      text: '¿Qué líder mongol fundó el mayor imperio continental de la historia?',
+      options: ['Kublai Khan', 'Tamerlán', 'Gengis Khan', 'Ögedei Khan'],
+      correctAnswer: 'Gengis Khan',
+      explanation:
+          'Gengis Khan fundó el Imperio Mongol en 1206 y lo expandió desde el Pacífico hasta Europa Central, convirtiéndolo en el mayor imperio continuo de la historia con más de 24 millones de km².',
+      difficulty: 1,
+      xpReward: 10,
+    ),
+    Question(
+      id: 'hist_019',
+      categoryId: 'history',
+      type: 'multiple_choice',
+      text: '¿En qué año fue fundada Constantinopla, la capital del Imperio Otomano, tras su conquista?',
+      options: ['1299', '1453', '1517', '1566'],
+      correctAnswer: '1453',
+      explanation:
+          'En 1453, el sultán Mehmed II conquistó Constantinopla, poniendo fin al Imperio Bizantino. Renombrada Estambul, se convirtió en la capital del Imperio Otomano hasta la proclamación de la República Turca en 1923.',
+      difficulty: 2,
+      xpReward: 25,
+    ),
+    Question(
+      id: 'hist_020',
+      categoryId: 'history',
+      type: 'multiple_choice',
+      text: '¿Quién fue el mecenas más influyente del Renacimiento italiano y gobernante de Florencia?',
+      options: [
+        'Francesco Sforza',
+        'Lorenzo de Médici',
+        'Cesare Borgia',
+        'Filippo Brunelleschi'
+      ],
+      correctAnswer: 'Lorenzo de Médici',
+      explanation:
+          'Lorenzo de Médici, conocido como "el Magnífico", gobernó Florencia entre 1469 y 1492 y fue el mayor mecenas del Renacimiento, financiando a artistas como Botticelli y el joven Miguel Ángel.',
+      difficulty: 2,
+      xpReward: 25,
+    ),
+    Question(
+      id: 'hist_021',
+      categoryId: 'history',
+      type: 'multiple_choice',
+      text: '¿Qué invento de James Watt impulsó la Revolución Industrial en el siglo XVIII?',
+      options: [
+        'El motor a vapor mejorado',
+        'La locomotora de vapor',
+        'El telégrafo eléctrico',
+        'El telar mecánico'
+      ],
+      correctAnswer: 'El motor a vapor mejorado',
+      explanation:
+          'James Watt perfeccionó el motor de vapor en 1769, añadiendo un condensador separado que lo hizo mucho más eficiente. Su motor impulsó fábricas, minas y transportes, siendo el corazón de la Revolución Industrial.',
+      difficulty: 2,
+      xpReward: 25,
+    ),
+    Question(
+      id: 'hist_022',
+      categoryId: 'history',
+      type: 'multiple_choice',
+      text: '¿Qué evento marcó el inicio de la Guerra Fría entre EE.UU. y la URSS?',
+      options: [
+        'La caída de Berlín en 1945',
+        'La división de Alemania y el Telón de Acero tras la Segunda Guerra Mundial',
+        'La crisis de los misiles en Cuba en 1962',
+        'La guerra de Corea en 1950'
+      ],
+      correctAnswer: 'La división de Alemania y el Telón de Acero tras la Segunda Guerra Mundial',
+      explanation:
+          'La Guerra Fría comenzó con el fin de la Segunda Guerra Mundial (1945), cuando el mundo quedó dividido entre el bloque occidental liderado por EE.UU. y el bloque soviético. Churchill acuñó el término "Telón de Acero" en 1946.',
+      difficulty: 2,
+      xpReward: 25,
+    ),
+    Question(
+      id: 'hist_023',
+      categoryId: 'history',
+      type: 'multiple_choice',
+      text: '¿Cuántos años estuvo Nelson Mandela encarcelado antes de convertirse en presidente de Sudáfrica?',
+      options: ['18 años', '23 años', '27 años', '32 años'],
+      correctAnswer: '27 años',
+      explanation:
+          'Nelson Mandela estuvo preso 27 años (1964-1990), principalmente en la prisión de Robben Island, condenado por su lucha contra el apartheid. En 1994 se convirtió en el primer presidente negro de Sudáfrica.',
+      difficulty: 2,
+      xpReward: 25,
+    ),
+    Question(
+      id: 'hist_024',
+      categoryId: 'history',
+      type: 'multiple_choice',
+      text: '¿Qué método de resistencia pacífica popularizó Gandhi para lograr la independencia de India?',
+      options: [
+        'La huelga general armada',
+        'La desobediencia civil no violenta',
+        'El boicot económico militar',
+        'La resistencia parlamentaria'
+      ],
+      correctAnswer: 'La desobediencia civil no violenta',
+      explanation:
+          'Gandhi desarrolló la "satyagraha" (fuerza de la verdad), método de resistencia pasiva y desobediencia civil no violenta. Su Marcha de la Sal en 1930 es uno de los ejemplos más célebres de esta táctica.',
+      difficulty: 1,
+      xpReward: 10,
+    ),
+    Question(
+      id: 'hist_025',
+      categoryId: 'history',
+      type: 'multiple_choice',
+      text: '¿Cuáles fueron los elementos radiactivos descubiertos por Marie Curie?',
+      options: [
+        'Uranio y torio',
+        'Radio y polonio',
+        'Radón y francio',
+        'Cesio y bario'
+      ],
+      correctAnswer: 'Radio y polonio',
+      explanation:
+          'Marie Curie y su esposo Pierre descubrieron el polonio (nombrado en honor a Polonia) y el radio en 1898. Marie fue la primera persona en ganar dos Premios Nobel en disciplinas distintas.',
+      difficulty: 2,
+      xpReward: 25,
+    ),
+    Question(
+      id: 'hist_026',
+      categoryId: 'history',
+      type: 'multiple_choice',
+      text: '¿Qué documento firmado en 1215 limitó el poder absoluto del rey inglés por primera vez?',
+      options: ['El Estatuto de Oxford', 'La Carta Magna', 'El Bill of Rights', 'La Petición de Derechos'],
+      correctAnswer: 'La Carta Magna',
+      explanation:
+          'La Carta Magna fue firmada por el rey Juan de Inglaterra en 1215, limitando por primera vez el poder real y reconociendo ciertos derechos a los barones. Es considerada la base del derecho constitucional moderno.',
+      difficulty: 2,
+      xpReward: 25,
+    ),
+    Question(
+      id: 'hist_027',
+      categoryId: 'history',
+      type: 'multiple_choice',
+      text: '¿En qué año se firmó la Declaración de Independencia de los Estados Unidos?',
+      options: ['1773', '1776', '1781', '1787'],
+      correctAnswer: '1776',
+      explanation:
+          'La Declaración de Independencia de los Estados Unidos fue adoptada el 4 de julio de 1776 por el Congreso Continental, separando formalmente las 13 colonias de la Corona Británica.',
+      difficulty: 1,
+      xpReward: 10,
+    ),
+    Question(
+      id: 'hist_028',
+      categoryId: 'history',
+      type: 'multiple_choice',
+      text: '¿Cuánto tiempo duró el Imperio Bizantino desde la caída de Roma Occidental hasta su fin?',
+      options: ['400 años', '600 años', '800 años', '1 000 años'],
+      correctAnswer: '1 000 años',
+      explanation:
+          'El Imperio Bizantino (Imperio Romano de Oriente) sobrevivió aproximadamente 1 000 años tras la caída de Roma Occidental en 476 d.C., hasta la conquista de Constantinopla por los otomanos en 1453.',
+      difficulty: 3,
+      xpReward: 50,
+    ),
+    Question(
+      id: 'hist_029',
+      categoryId: 'history',
+      type: 'true_false',
+      text: 'El Imperio Mongol fue el mayor imperio de la historia en términos de superficie terrestre continua.',
+      options: ['Verdadero', 'Falso'],
+      correctAnswer: 'Verdadero',
+      explanation:
+          'El Imperio Mongol alcanzó su máxima extensión en 1279, con más de 24 millones de km² contiguos, siendo el mayor imperio continental de la historia. El Imperio Británico fue mayor en total pero no era continuo.',
+      difficulty: 2,
+      xpReward: 25,
+    ),
+    Question(
+      id: 'hist_030',
+      categoryId: 'history',
+      type: 'multiple_choice',
+      text: '¿Qué evento desencadenó directamente la Primera Guerra Mundial en 1914?',
+      options: [
+        'La invasión alemana de Bélgica',
+        'El asesinato del Archiduque Francisco Fernando en Sarajevo',
+        'La declaración de guerra austro-húngara a Serbia',
+        'El hundimiento del Lusitania'
+      ],
+      correctAnswer: 'El asesinato del Archiduque Francisco Fernando en Sarajevo',
+      explanation:
+          'El 28 de junio de 1914, el Archiduque Francisco Fernando de Austria fue asesinado en Sarajevo por el nacionalista serbio Gavrilo Princip. Este detonante activó las alianzas europeas y desembocó en la Primera Guerra Mundial.',
+      difficulty: 2,
+      xpReward: 25,
     ),
 
     // =========================================================================
@@ -439,6 +642,229 @@ class QuestionService {
     ),
 
     // =========================================================================
+    // CIENCIA — preguntas adicionales (sci_017 – sci_030)
+    // =========================================================================
+
+    Question(
+      id: 'sci_017',
+      categoryId: 'science',
+      type: 'multiple_choice',
+      text: '¿Qué es la teoría de cuerdas en física teórica?',
+      options: [
+        'Una teoría que describe la gravedad cuántica mediante cuerdas unidimensionales vibrantes',
+        'Una teoría sobre la formación de cuerdas de ADN',
+        'Un modelo del sistema nervioso basado en redes',
+        'Una teoría sobre la propagación del sonido en el universo'
+      ],
+      correctAnswer: 'Una teoría que describe la gravedad cuántica mediante cuerdas unidimensionales vibrantes',
+      explanation:
+          'La teoría de cuerdas propone que las partículas fundamentales no son puntos, sino cuerdas unidimensionales que vibran. Diferentes modos de vibración producen distintas partículas y podría unificar la mecánica cuántica con la relatividad general.',
+      difficulty: 3,
+      xpReward: 50,
+    ),
+    Question(
+      id: 'sci_018',
+      categoryId: 'science',
+      type: 'multiple_choice',
+      text: '¿Qué significa CRISPR en el contexto de la biología molecular?',
+      options: [
+        'Una técnica de edición genética de alta precisión',
+        'Una proteína responsable de la replicación del ADN',
+        'Un tipo de ARN mensajero modificado',
+        'Un método de secuenciación genómica masiva'
+      ],
+      correctAnswer: 'Una técnica de edición genética de alta precisión',
+      explanation:
+          'CRISPR-Cas9 es una herramienta de edición genética desarrollada en 2012 por Jennifer Doudna y Emmanuelle Charpentier (Nobel 2020). Permite cortar y modificar el ADN con gran precisión, revolucionando la biología y la medicina.',
+      difficulty: 2,
+      xpReward: 25,
+    ),
+    Question(
+      id: 'sci_019',
+      categoryId: 'science',
+      type: 'multiple_choice',
+      text: '¿Qué es el horizonte de eventos de un agujero negro?',
+      options: [
+        'El límite más allá del cual nada, ni siquiera la luz, puede escapar',
+        'La región donde la materia comienza a comprimirse',
+        'El disco de gas y polvo que rodea al agujero negro',
+        'La zona donde la gravedad se vuelve repulsiva'
+      ],
+      correctAnswer: 'El límite más allá del cual nada, ni siquiera la luz, puede escapar',
+      explanation:
+          'El horizonte de eventos es la frontera imaginaria alrededor de un agujero negro. Cualquier objeto o señal de luz que cruce este límite queda atrapado para siempre por la gravedad del agujero negro.',
+      difficulty: 2,
+      xpReward: 25,
+    ),
+    Question(
+      id: 'sci_020',
+      categoryId: 'science',
+      type: 'multiple_choice',
+      text: '¿Cuál es la ecuación química que resume la fotosíntesis?',
+      options: [
+        '6CO₂ + 6H₂O → C₆H₁₂O₆ + 6O₂',
+        'C₆H₁₂O₆ + 6O₂ → 6CO₂ + 6H₂O',
+        '6CO₂ + 6O₂ → C₆H₁₂O₆ + 6H₂O',
+        '6H₂O + 6O₂ → C₆H₁₂O₆ + 6CO₂'
+      ],
+      correctAnswer: '6CO₂ + 6H₂O → C₆H₁₂O₆ + 6O₂',
+      explanation:
+          'La fotosíntesis se resume en: 6CO₂ + 6H₂O + energía luminosa → C₆H₁₂O₆ + 6O₂. Las plantas convierten dióxido de carbono y agua en glucosa y oxígeno usando luz solar.',
+      difficulty: 3,
+      xpReward: 50,
+    ),
+    Question(
+      id: 'sci_021',
+      categoryId: 'science',
+      type: 'multiple_choice',
+      text: '¿Cuáles son los gases nobles de la tabla periódica?',
+      options: [
+        'Hidrógeno, helio, nitrógeno y oxígeno',
+        'Helio, neón, argón, kriptón, xenón y radón',
+        'Flúor, cloro, bromo y yodo',
+        'Litio, sodio, potasio y rubidio'
+      ],
+      correctAnswer: 'Helio, neón, argón, kriptón, xenón y radón',
+      explanation:
+          'Los gases nobles (grupo 18) son: helio (He), neón (Ne), argón (Ar), kriptón (Kr), xenón (Xe) y radón (Rn). Son extremadamente estables e inertes porque tienen su capa de valencia completa.',
+      difficulty: 2,
+      xpReward: 25,
+    ),
+    Question(
+      id: 'sci_022',
+      categoryId: 'science',
+      type: 'multiple_choice',
+      text: '¿Qué enuncia la tercera ley del movimiento de Newton?',
+      options: [
+        'Todo cuerpo en reposo permanece en reposo salvo que actúe una fuerza',
+        'La fuerza es igual a la masa por la aceleración (F=ma)',
+        'A toda acción le corresponde una reacción igual y opuesta',
+        'La energía cinética es proporcional al cuadrado de la velocidad'
+      ],
+      correctAnswer: 'A toda acción le corresponde una reacción igual y opuesta',
+      explanation:
+          'La tercera ley de Newton establece que si un objeto A ejerce una fuerza sobre un objeto B, entonces B ejerce una fuerza igual en magnitud pero opuesta en dirección sobre A. Esto explica desde el vuelo de cohetes hasta el nado.',
+      difficulty: 1,
+      xpReward: 10,
+    ),
+    Question(
+      id: 'sci_023',
+      categoryId: 'science',
+      type: 'multiple_choice',
+      text: '¿Cuánto tiempo tarda la luz del Sol en llegar a la Tierra?',
+      options: ['1 segundo', '8 minutos', '1 hora', '8 horas'],
+      correctAnswer: '8 minutos',
+      explanation:
+          'La luz del Sol tarda aproximadamente 8 minutos y 20 segundos en llegar a la Tierra, recorriendo los 150 millones de km que nos separan a 300 000 km/s.',
+      difficulty: 1,
+      xpReward: 10,
+    ),
+    Question(
+      id: 'sci_024',
+      categoryId: 'science',
+      type: 'multiple_choice',
+      text: '¿Quiénes descubrieron la estructura del ADN y en qué año?',
+      options: [
+        'Pauling y Corey, en 1950',
+        'Watson y Crick, en 1953',
+        'Franklin y Wilkins, en 1952',
+        'Avery y MacLeod, en 1944'
+      ],
+      correctAnswer: 'Watson y Crick, en 1953',
+      explanation:
+          'James Watson y Francis Crick publicaron el modelo de doble hélice del ADN en 1953 en la revista Nature, basándose crucialmente en la fotografía de difracción de Rosalind Franklin. Ganaron el Nobel de Medicina en 1962.',
+      difficulty: 1,
+      xpReward: 10,
+    ),
+    Question(
+      id: 'sci_025',
+      categoryId: 'science',
+      type: 'multiple_choice',
+      text: '¿Qué son las placas tectónicas?',
+      options: [
+        'Grandes fragmentos de la corteza y litósfera terrestre que se desplazan lentamente',
+        'Capas de roca sedimentaria bajo los océanos',
+        'Zonas volcánicas en los fondos oceánicos',
+        'Estructuras cristalinas del manto superior'
+      ],
+      correctAnswer: 'Grandes fragmentos de la corteza y litósfera terrestre que se desplazan lentamente',
+      explanation:
+          'Las placas tectónicas son grandes fragmentos rígidos de la litósfera (corteza + manto superior) que flotan sobre el manto astenosférico y se desplazan varios centímetros por año, causando terremotos, volcanes y la formación de montañas.',
+      difficulty: 2,
+      xpReward: 25,
+    ),
+    Question(
+      id: 'sci_026',
+      categoryId: 'science',
+      type: 'true_false',
+      text: 'El agua hierve siempre a 100°C independientemente de la altitud.',
+      options: ['Verdadero', 'Falso'],
+      correctAnswer: 'Falso',
+      explanation:
+          'El punto de ebullición del agua varía con la presión atmosférica. A mayor altitud, menor presión, y el agua hierve a menor temperatura. En el Everest (8 849 m) hierve a unos 70°C.',
+      difficulty: 2,
+      xpReward: 25,
+    ),
+    Question(
+      id: 'sci_027',
+      categoryId: 'science',
+      type: 'multiple_choice',
+      text: '¿Qué tipo de onda son la luz visible y los rayos X?',
+      options: [
+        'Ondas mecánicas longitudinales',
+        'Ondas electromagnéticas transversales',
+        'Ondas de presión sonora',
+        'Ondas gravitacionales cuánticas'
+      ],
+      correctAnswer: 'Ondas electromagnéticas transversales',
+      explanation:
+          'La luz visible, los rayos X, las microondas y las ondas de radio son todas ondas electromagnéticas transversales que no necesitan un medio para propagarse y viajan al vacío a 300 000 km/s.',
+      difficulty: 2,
+      xpReward: 25,
+    ),
+    Question(
+      id: 'sci_028',
+      categoryId: 'science',
+      type: 'multiple_choice',
+      text: '¿Cuántos pares de bases nitrogenadas contiene aproximadamente el genoma humano completo?',
+      options: ['30 millones', '3 000 millones', '300 000 millones', '30 billones'],
+      correctAnswer: '3 000 millones',
+      explanation:
+          'El genoma humano contiene aproximadamente 3 000 millones de pares de bases de ADN distribuidos en 23 pares de cromosomas, con unos 20 000-25 000 genes que codifican proteínas.',
+      difficulty: 3,
+      xpReward: 50,
+    ),
+    Question(
+      id: 'sci_029',
+      categoryId: 'science',
+      type: 'multiple_choice',
+      text: '¿Cuál es el planeta más caliente del sistema solar?',
+      options: ['Mercurio', 'Venus', 'Júpiter', 'Marte'],
+      correctAnswer: 'Venus',
+      explanation:
+          'Venus es el planeta más caliente del sistema solar con temperaturas de unos 465°C, a pesar de estar más lejos del Sol que Mercurio. Su densa atmósfera de CO₂ genera un efecto invernadero extremo.',
+      difficulty: 2,
+      xpReward: 25,
+    ),
+    Question(
+      id: 'sci_030',
+      categoryId: 'science',
+      type: 'multiple_choice',
+      text: '¿Qué es la materia oscura?',
+      options: [
+        'Una forma de materia que no emite ni absorbe luz pero tiene masa gravitacional',
+        'El espacio vacío entre las galaxias',
+        'Gas interestelar negro y frío',
+        'Agujeros negros de pequeño tamaño distribuidos en el universo'
+      ],
+      correctAnswer: 'Una forma de materia que no emite ni absorbe luz pero tiene masa gravitacional',
+      explanation:
+          'La materia oscura es una forma hipotética de materia que no interactúa con la radiación electromagnética (no se puede ver), pero sí con la gravedad. Se estima que constituye el 27% del universo y es esencial para explicar la formación de galaxias.',
+      difficulty: 3,
+      xpReward: 50,
+    ),
+
+    // =========================================================================
     // GEOGRAFÍA — 14 questions
     // =========================================================================
 
@@ -624,6 +1050,148 @@ class QuestionService {
           'El Mar Muerto, en la frontera de Israel, Jordania y Palestina, es el punto más bajo de la superficie terrestre a 430 metros bajo el nivel del mar.',
       difficulty: 2,
       xpReward: 25,
+    ),
+
+    // =========================================================================
+    // GEOGRAFÍA — preguntas adicionales (geo_015 – geo_025)
+    // =========================================================================
+
+    Question(
+      id: 'geo_015',
+      categoryId: 'geography',
+      type: 'multiple_choice',
+      text: '¿Cuál es el río más largo de Europa?',
+      options: ['El Rin', 'El Danubio', 'El Volga', 'El Elba'],
+      correctAnswer: 'El Volga',
+      explanation:
+          'El Volga, con 3 690 km de longitud, es el río más largo de Europa. Nace en las colinas de Valdái y desemboca en el Mar Caspio, siendo de gran importancia histórica y económica para Rusia.',
+      difficulty: 2,
+      xpReward: 25,
+    ),
+    Question(
+      id: 'geo_016',
+      categoryId: 'geography',
+      type: 'multiple_choice',
+      text: '¿Cuál es la segunda montaña más alta del mundo?',
+      options: ['Kangchenjunga', 'K2', 'Lhotse', 'Makalu'],
+      correctAnswer: 'K2',
+      explanation:
+          'K2 (8 611 m), ubicado en la frontera entre Pakistán y China, es la segunda montaña más alta del mundo. Es considerada más difícil de escalar que el Everest y tiene una tasa de mortalidad significativamente mayor.',
+      difficulty: 2,
+      xpReward: 25,
+    ),
+    Question(
+      id: 'geo_017',
+      categoryId: 'geography',
+      type: 'multiple_choice',
+      text: '¿Cuál es la capital de Egipto?',
+      options: ['Alejandría', 'Luxor', 'El Cairo', 'Asuán'],
+      correctAnswer: 'El Cairo',
+      explanation:
+          'El Cairo es la capital de Egipto y la ciudad más grande de África y del mundo árabe, con más de 20 millones de habitantes en su área metropolitana. Está situada a orillas del Nilo, cerca de las pirámides de Guiza.',
+      difficulty: 1,
+      xpReward: 10,
+    ),
+    Question(
+      id: 'geo_018',
+      categoryId: 'geography',
+      type: 'multiple_choice',
+      text: '¿Cuál es el país más poblado de África?',
+      options: ['Etiopía', 'República Democrática del Congo', 'Nigeria', 'Sudáfrica'],
+      correctAnswer: 'Nigeria',
+      explanation:
+          'Nigeria es el país más poblado de África con más de 220 millones de habitantes, concentrando cerca del 20% de la población total del continente. Su capital es Abuja.',
+      difficulty: 2,
+      xpReward: 25,
+    ),
+    Question(
+      id: 'geo_019',
+      categoryId: 'geography',
+      type: 'multiple_choice',
+      text: '¿Cuál es el país más pequeño del mundo?',
+      options: ['Mónaco', 'San Marino', 'Liechtenstein', 'Ciudad del Vaticano'],
+      correctAnswer: 'Ciudad del Vaticano',
+      explanation:
+          'La Ciudad del Vaticano, con apenas 0,44 km², es el Estado independiente más pequeño del mundo. Está enclavado dentro de Roma y es la sede de la Iglesia Católica.',
+      difficulty: 1,
+      xpReward: 10,
+    ),
+    Question(
+      id: 'geo_020',
+      categoryId: 'geography',
+      type: 'multiple_choice',
+      text: '¿Cuál es el país con más islas en el mundo?',
+      options: ['Filipinas', 'Indonesia', 'Suecia', 'Noruega'],
+      correctAnswer: 'Suecia',
+      explanation:
+          'Suecia tiene aproximadamente 221 800 islas, el mayor número de cualquier país del mundo. Indonesia, con unas 17 000, es el mayor archipiélago en términos de superficie e islas habitadas.',
+      difficulty: 3,
+      xpReward: 50,
+    ),
+    Question(
+      id: 'geo_021',
+      categoryId: 'geography',
+      type: 'multiple_choice',
+      text: '¿Cuáles son los únicos dos países de América del Sur sin litoral marítimo?',
+      options: [
+        'Paraguay y Uruguay',
+        'Bolivia y Paraguay',
+        'Bolivia y Ecuador',
+        'Paraguay y Colombia'
+      ],
+      correctAnswer: 'Bolivia y Paraguay',
+      explanation:
+          'Bolivia y Paraguay son los únicos países mediterráneos (sin costa marítima) de América del Sur. Bolivia perdió su litoral tras la Guerra del Pacífico (1879-1884) con Chile.',
+      difficulty: 3,
+      xpReward: 50,
+    ),
+    Question(
+      id: 'geo_022',
+      categoryId: 'geography',
+      type: 'multiple_choice',
+      text: '¿Cuál es el desierto más grande de Asia?',
+      options: ['Desierto de Gobi', 'Desierto de Arabia', 'Desierto de Taklamakán', 'Desierto de Karakum'],
+      correctAnswer: 'Desierto de Arabia',
+      explanation:
+          'El Desierto de Arabia, con unos 2,33 millones de km², es el desierto más grande de Asia. Abarca la mayor parte de la Península Arábiga e incluye el Rub al Jali, el mayor desierto de arena continuo del mundo.',
+      difficulty: 3,
+      xpReward: 50,
+    ),
+    Question(
+      id: 'geo_023',
+      categoryId: 'geography',
+      type: 'multiple_choice',
+      text: '¿En qué continente se encuentran las cataratas Victoria?',
+      options: ['América del Sur', 'Asia', 'África', 'Oceanía'],
+      correctAnswer: 'África',
+      explanation:
+          'Las cataratas Victoria, en la frontera entre Zambia y Zimbabue, son la cascada más grande del mundo por caudal y consideradas una de las Siete Maravillas Naturales. El río Zambeze las alimenta.',
+      difficulty: 1,
+      xpReward: 10,
+    ),
+    Question(
+      id: 'geo_024',
+      categoryId: 'geography',
+      type: 'multiple_choice',
+      text: '¿Cuál es la capital de Japón?',
+      options: ['Osaka', 'Kioto', 'Tokio', 'Hiroshima'],
+      correctAnswer: 'Tokio',
+      explanation:
+          'Tokio es la capital de Japón desde 1869 y la mayor área metropolitana del mundo con unos 37 millones de habitantes. Anteriormente la capital era Kioto, que fue el centro imperial durante más de mil años.',
+      difficulty: 1,
+      xpReward: 10,
+    ),
+    Question(
+      id: 'geo_025',
+      categoryId: 'geography',
+      type: 'multiple_choice',
+      text: '¿Por cuántos países pasa el río Danubio?',
+      options: ['6', '8', '10', '12'],
+      correctAnswer: '10',
+      explanation:
+          'El Danubio (2 860 km) es el río que pasa por más países del mundo: Alemania, Austria, Eslovaquia, Hungría, Croacia, Serbia, Bulgaria, Rumanía, Moldavia y Ucrania, además de bordear otros dos.',
+      difficulty: 3,
+      xpReward: 50,
     ),
 
     // =========================================================================
@@ -828,6 +1396,163 @@ class QuestionService {
           'El Louvre, ubicado en París, Francia, es el museo de arte más visitado del mundo con más de 9 millones de visitantes anuales y alberga más de 380 000 obras.',
       difficulty: 1,
       xpReward: 10,
+    ),
+
+    // =========================================================================
+    // ARTE — preguntas adicionales (art_015 – art_025)
+    // =========================================================================
+
+    Question(
+      id: 'art_015',
+      categoryId: 'art',
+      type: 'multiple_choice',
+      text: '¿Por qué es famosa Frida Kahlo en el mundo del arte?',
+      options: [
+        'Por sus esculturas abstractas de gran formato',
+        'Por sus autorretratos íntimos que mezclan realismo y surrealismo mexicano',
+        'Por fundar el movimiento muralista mexicano',
+        'Por sus fotografías documental del México rural'
+      ],
+      correctAnswer: 'Por sus autorretratos íntimos que mezclan realismo y surrealismo mexicano',
+      explanation:
+          'Frida Kahlo (1907-1954) es célebre por sus autorretratos vívidos que expresan el dolor físico y emocional de su vida, combinando simbolismo mexicano, surrealismo y realismo. Pintó 55 de sus 143 obras como autorretratos.',
+      difficulty: 1,
+      xpReward: 10,
+    ),
+    Question(
+      id: 'art_016',
+      categoryId: 'art',
+      type: 'multiple_choice',
+      text: '¿Cuál es la obra más famosa de Salvador Dalí?',
+      options: [
+        'La persistencia de la memoria',
+        'El gran masturbador',
+        'El Cristo de San Juan de la Cruz',
+        'Sueño causado por el vuelo de una abeja'
+      ],
+      correctAnswer: 'La persistencia de la memoria',
+      explanation:
+          '"La persistencia de la memoria" (1931) es el cuadro más icónico de Salvador Dalí, con sus célebres relojes derretidos. Mide solo 24 × 33 cm y se exhibe en el MoMA de Nueva York.',
+      difficulty: 1,
+      xpReward: 10,
+    ),
+    Question(
+      id: 'art_017',
+      categoryId: 'art',
+      type: 'multiple_choice',
+      text: '¿Dónde pintó Van Gogh "La noche estrellada"?',
+      options: [
+        'En Ámsterdam, durante su período temprano',
+        'En el manicomio de Saint-Paul-de-Mausole en Saint-Rémy-de-Provence',
+        'En París, durante su estancia con Toulouse-Lautrec',
+        'En Arlés, mientras vivía con Gauguin'
+      ],
+      correctAnswer: 'En el manicomio de Saint-Paul-de-Mausole en Saint-Rémy-de-Provence',
+      explanation:
+          'Van Gogh pintó "La noche estrellada" en junio de 1889 desde la ventana de su habitación en el manicomio de Saint-Paul-de-Mausole, donde se había internado voluntariamente tras cortarse la oreja en Arlés.',
+      difficulty: 3,
+      xpReward: 50,
+    ),
+    Question(
+      id: 'art_018',
+      categoryId: 'art',
+      type: 'multiple_choice',
+      text: '¿En qué ciudad de Estados Unidos nació el jazz como género musical?',
+      options: ['Nueva York', 'Chicago', 'Nueva Orleans', 'Memphis'],
+      correctAnswer: 'Nueva Orleans',
+      explanation:
+          'El jazz nació en Nueva Orleans a finales del siglo XIX, fusionando elementos del blues, los espirituales afroamericanos, el ragtime y la música creole. El Barrio Francés de Nueva Orleans fue su cuna principal.',
+      difficulty: 1,
+      xpReward: 10,
+    ),
+    Question(
+      id: 'art_019',
+      categoryId: 'art',
+      type: 'multiple_choice',
+      text: '¿En qué país se originó el ballet clásico como forma de arte?',
+      options: ['Rusia', 'Italia', 'Francia', 'Austria'],
+      correctAnswer: 'Italia',
+      explanation:
+          'El ballet clásico surgió en las cortes italianas del Renacimiento en el siglo XV y XVI como espectáculo cortesano. Luego se desarrolló en Francia bajo Luis XIV, quien fundó la primera academia de danza en 1661.',
+      difficulty: 2,
+      xpReward: 25,
+    ),
+    Question(
+      id: 'art_020',
+      categoryId: 'art',
+      type: 'multiple_choice',
+      text: '¿Quién compuso las óperas "Don Giovanni" y "La flauta mágica"?',
+      options: ['Ludwig van Beethoven', 'Wolfgang Amadeus Mozart', 'Giuseppe Verdi', 'Richard Wagner'],
+      correctAnswer: 'Wolfgang Amadeus Mozart',
+      explanation:
+          'Wolfgang Amadeus Mozart compuso "Don Giovanni" en 1787 y "La flauta mágica" en 1791, el mismo año de su muerte a los 35 años. Fue un genio musical que comenzó a componer a los cinco años.',
+      difficulty: 1,
+      xpReward: 10,
+    ),
+    Question(
+      id: 'art_021',
+      categoryId: 'art',
+      type: 'multiple_choice',
+      text: '¿Qué estilo arquitectónico caracteriza la obra de Antoni Gaudí?',
+      options: [
+        'Racionalismo funcional y minimalismo',
+        'Modernismo catalán con formas orgánicas y naturalistas',
+        'Neogótico con influencias árabes clásicas',
+        'Art Déco con ornamentación geométrica'
+      ],
+      correctAnswer: 'Modernismo catalán con formas orgánicas y naturalistas',
+      explanation:
+          'Gaudí desarrolló un estilo único dentro del Modernismo catalán, inspirado en la naturaleza: curvas, espirales, estructuras parabólicas y mosaicos de cerámica (trencadís). La Sagrada Familia y el Park Güell son sus obras más representativas.',
+      difficulty: 2,
+      xpReward: 25,
+    ),
+    Question(
+      id: 'art_022',
+      categoryId: 'art',
+      type: 'multiple_choice',
+      text: '¿Qué arquitecta iraquí-británica fue la primera mujer en ganar el Premio Pritzker?',
+      options: ['Kazuyo Sejima', 'Zaha Hadid', 'Wang Shu', 'Grafton Architects'],
+      correctAnswer: 'Zaha Hadid',
+      explanation:
+          'Zaha Hadid (1950-2016) fue la primera mujer en recibir el Premio Pritzker (2004), considerado el Nobel de la arquitectura. Sus diseños futuristas y deconstruccionistas incluyen el MAXXI de Roma y el Centro Heydar Aliyev de Bakú.',
+      difficulty: 2,
+      xpReward: 25,
+    ),
+    Question(
+      id: 'art_023',
+      categoryId: 'art',
+      type: 'multiple_choice',
+      text: '¿Qué técnica pictórica usaba Georges Seurat, creando imágenes con pequeños puntos de color?',
+      options: ['Impresionismo', 'Puntillismo', 'Fauvismo', 'Cubismo'],
+      correctAnswer: 'Puntillismo',
+      explanation:
+          'Georges Seurat desarrolló el puntillismo (también llamado divisionismo o neoimoresionismo), técnica que aplica pequeños puntos de colores puros que se mezclan en el ojo del espectador. "Un domingo en la Grande Jatte" es su obra más célebre.',
+      difficulty: 2,
+      xpReward: 25,
+    ),
+    Question(
+      id: 'art_024',
+      categoryId: 'art',
+      type: 'multiple_choice',
+      text: '¿Cuál es el instrumento principal del compositor polaco Frédéric Chopin?',
+      options: ['Violín', 'Cello', 'Piano', 'Órgano'],
+      correctAnswer: 'Piano',
+      explanation:
+          'Frédéric Chopin (1810-1849) compuso casi exclusivamente para piano y es considerado uno de los mayores compositores para este instrumento. Sus nocturnos, mazurcas y polonesas son piezas fundamentales del repertorio pianístico.',
+      difficulty: 1,
+      xpReward: 10,
+    ),
+    Question(
+      id: 'art_025',
+      categoryId: 'art',
+      type: 'true_false',
+      text: 'El cubismo fue fundado conjuntamente por Pablo Picasso y Georges Braque alrededor de 1907.',
+      options: ['Verdadero', 'Falso'],
+      correctAnswer: 'Verdadero',
+      explanation:
+          'El cubismo fue desarrollado conjuntamente por Picasso y Braque entre 1907 y 1914. "Las señoritas de Avignon" de Picasso (1907) se considera el primer cuadro cubista, y ambos trabajaron estrechamente en los años siguientes.',
+      difficulty: 2,
+      xpReward: 25,
     ),
 
     // =========================================================================
@@ -1055,6 +1780,168 @@ class QuestionService {
           'Python fue creado por Guido van Rossum y lanzado en 1991. Van Rossum lo desarrolló de forma independiente; posteriormente la Python Software Foundation gestiona su evolución.',
       difficulty: 3,
       xpReward: 50,
+    ),
+
+    // =========================================================================
+    // TECNOLOGÍA — preguntas adicionales (tech_017 – tech_027)
+    // =========================================================================
+
+    Question(
+      id: 'tech_017',
+      categoryId: 'tech',
+      type: 'multiple_choice',
+      text: '¿Cuál fue la primera computadora electrónica de propósito general?',
+      options: ['UNIVAC I', 'ENIAC', 'Colossus', 'IBM 701'],
+      correctAnswer: 'ENIAC',
+      explanation:
+          'ENIAC (Electronic Numerical Integrator and Computer), completada en 1945 en la Universidad de Pensilvania, fue la primera computadora electrónica digital de propósito general. Pesaba 27 toneladas y ocupaba 167 m².',
+      difficulty: 2,
+      xpReward: 25,
+    ),
+    Question(
+      id: 'tech_018',
+      categoryId: 'tech',
+      type: 'multiple_choice',
+      text: '¿Qué lenguaje de programación creó Bjarne Stroustrup en los años 80?',
+      options: ['Java', 'C++', 'Rust', 'Pascal'],
+      correctAnswer: 'C++',
+      explanation:
+          'Bjarne Stroustrup desarrolló C++ en los Laboratorios Bell a principios de los años 80, añadiendo programación orientada a objetos al lenguaje C. Es uno de los lenguajes más usados en sistemas operativos y videojuegos.',
+      difficulty: 2,
+      xpReward: 25,
+    ),
+    Question(
+      id: 'tech_019',
+      categoryId: 'tech',
+      type: 'multiple_choice',
+      text: '¿Cuándo lanzó SpaceX su primer cohete reutilizable que aterrizó exitosamente?',
+      options: ['2010', '2013', '2015', '2018'],
+      correctAnswer: '2015',
+      explanation:
+          'El 21 de diciembre de 2015, SpaceX logró el primer aterrizaje exitoso del cohete Falcon 9 en tierra firme, un hito revolucionario en la historia espacial. La reutilización de cohetes reduce drásticamente el coste de los lanzamientos.',
+      difficulty: 2,
+      xpReward: 25,
+    ),
+    Question(
+      id: 'tech_020',
+      categoryId: 'tech',
+      type: 'multiple_choice',
+      text: '¿Qué es el aprendizaje profundo (deep learning) en inteligencia artificial?',
+      options: [
+        'Un tipo de programación que usa instrucciones detalladas paso a paso',
+        'Redes neuronales artificiales con múltiples capas que aprenden de grandes conjuntos de datos',
+        'Un algoritmo de búsqueda exhaustiva en bases de datos masivas',
+        'Un sistema de lógica difusa basado en reglas expertas'
+      ],
+      correctAnswer: 'Redes neuronales artificiales con múltiples capas que aprenden de grandes conjuntos de datos',
+      explanation:
+          'El deep learning usa redes neuronales con muchas capas ocultas que aprenden representaciones jerárquicas de los datos. Es la base del reconocimiento de imágenes, voz y traducción automática modernos.',
+      difficulty: 2,
+      xpReward: 25,
+    ),
+    Question(
+      id: 'tech_021',
+      categoryId: 'tech',
+      type: 'multiple_choice',
+      text: '¿En qué consiste la tecnología blockchain?',
+      options: [
+        'Un registro distribuido e inmutable de transacciones verificadas por consenso',
+        'Un sistema de cifrado de mensajes punto a punto',
+        'Una red de servidores centralizados con alta redundancia',
+        'Un protocolo de compresión de datos para transmisión rápida'
+      ],
+      correctAnswer: 'Un registro distribuido e inmutable de transacciones verificadas por consenso',
+      explanation:
+          'La blockchain es una cadena de bloques de datos enlazados criptográficamente, distribuida entre muchos nodos sin autoridad central. Es la base de Bitcoin y otras criptomonedas, y se usa para contratos inteligentes y trazabilidad.',
+      difficulty: 2,
+      xpReward: 25,
+    ),
+    Question(
+      id: 'tech_022',
+      categoryId: 'tech',
+      type: 'multiple_choice',
+      text: '¿En qué año se lanzó el primer smartphone con pantalla táctil capacitiva moderna?',
+      options: ['2005', '2007', '2009', '2011'],
+      correctAnswer: '2007',
+      explanation:
+          'El primer iPhone, presentado por Steve Jobs el 9 de enero de 2007, popularizó la pantalla táctil capacitiva multitáctil, eliminando el teclado físico. Este diseño se convirtió en el estándar de los smartphones modernos.',
+      difficulty: 1,
+      xpReward: 10,
+    ),
+    Question(
+      id: 'tech_023',
+      categoryId: 'tech',
+      type: 'multiple_choice',
+      text: '¿Qué significa GPS?',
+      options: [
+        'Global Positioning System',
+        'General Precision Satellite',
+        'Geo-Photon Sensor',
+        'Ground Positioning Sensor'
+      ],
+      correctAnswer: 'Global Positioning System',
+      explanation:
+          'GPS (Sistema de Posicionamiento Global) es un sistema de navegación por satélite desarrollado por el ejército de EE.UU., operativo desde 1994. Usa una constelación de al menos 24 satélites para determinar la posición en cualquier lugar de la Tierra.',
+      difficulty: 1,
+      xpReward: 10,
+    ),
+    Question(
+      id: 'tech_024',
+      categoryId: 'tech',
+      type: 'multiple_choice',
+      text: '¿Cuál es la diferencia principal entre inteligencia artificial estrecha y general?',
+      options: [
+        'La IA estrecha realiza tareas específicas; la IA general puede aprender cualquier tarea cognitiva humana',
+        'La IA estrecha usa menos datos; la IA general usa más',
+        'La IA estrecha es más rápida; la IA general es más precisa',
+        'La IA estrecha es software; la IA general es hardware'
+      ],
+      correctAnswer: 'La IA estrecha realiza tareas específicas; la IA general puede aprender cualquier tarea cognitiva humana',
+      explanation:
+          'La IA estrecha (ANI) realiza una única tarea bien definida como jugar al ajedrez o reconocer caras. La IA general (AGI) hipotética podría aprender y realizar cualquier tarea intelectual que un humano pueda hacer. Hoy solo existe ANI.',
+      difficulty: 2,
+      xpReward: 25,
+    ),
+    Question(
+      id: 'tech_025',
+      categoryId: 'tech',
+      type: 'true_false',
+      text: 'El lenguaje HTML fue creado por Tim Berners-Lee para estructurar páginas web.',
+      options: ['Verdadero', 'Falso'],
+      correctAnswer: 'Verdadero',
+      explanation:
+          'Tim Berners-Lee inventó HTML (HyperText Markup Language) en 1991 junto con el protocolo HTTP y la URL, creando así la World Wide Web. HTML es el lenguaje de marcado estándar para estructurar el contenido web.',
+      difficulty: 1,
+      xpReward: 10,
+    ),
+    Question(
+      id: 'tech_026',
+      categoryId: 'tech',
+      type: 'multiple_choice',
+      text: '¿Qué es la computación cuántica?',
+      options: [
+        'Computación que usa qubits y principios cuánticos para procesar información de forma paralela',
+        'Computación a velocidades cuánticas, millones de veces más rápida que la convencional',
+        'Un tipo de computación óptica basada en fotones',
+        'Computación distribuida usando miles de servidores pequeños'
+      ],
+      correctAnswer: 'Computación que usa qubits y principios cuánticos para procesar información de forma paralela',
+      explanation:
+          'La computación cuántica usa qubits (que pueden ser 0 y 1 simultáneamente gracias a la superposición cuántica) y el entrelazamiento cuántico para resolver ciertos problemas exponencialmente más rápido que los ordenadores clásicos.',
+      difficulty: 3,
+      xpReward: 50,
+    ),
+    Question(
+      id: 'tech_027',
+      categoryId: 'tech',
+      type: 'multiple_choice',
+      text: '¿Cuál es el lenguaje de programación más usado para desarrollo web del lado del servidor según encuestas recientes?',
+      options: ['Ruby', 'PHP', 'JavaScript (Node.js)', 'Python'],
+      correctAnswer: 'JavaScript (Node.js)',
+      explanation:
+          'JavaScript con Node.js es el lenguaje más usado para desarrollo web del lado del servidor según encuestas como Stack Overflow Developer Survey. Permite usar el mismo lenguaje tanto en frontend como en backend.',
+      difficulty: 2,
+      xpReward: 25,
     ),
 
     // =========================================================================
@@ -1312,6 +2199,183 @@ class QuestionService {
     ),
 
     // =========================================================================
+    // FILOSOFÍA — preguntas adicionales (phil_017 – phil_027)
+    // =========================================================================
+
+    Question(
+      id: 'phil_017',
+      categoryId: 'philosophy',
+      type: 'multiple_choice',
+      text: '¿Cuál es la idea central del existencialismo de Jean-Paul Sartre?',
+      options: [
+        '"La existencia precede a la esencia": somos lo que elegimos ser',
+        '"El hombre es bueno por naturaleza pero la sociedad lo corrompe"',
+        '"Dios ha muerto y debemos crear nuevos valores"',
+        '"La razón pura determina la moral universal"'
+      ],
+      correctAnswer: '"La existencia precede a la esencia": somos lo que elegimos ser',
+      explanation:
+          'Sartre sostenía que "la existencia precede a la esencia": no nacemos con un propósito predefinido, sino que nos creamos a nosotros mismos a través de nuestras elecciones. Esta libertad radical conlleva una responsabilidad absoluta.',
+      difficulty: 2,
+      xpReward: 25,
+    ),
+    Question(
+      id: 'phil_018',
+      categoryId: 'philosophy',
+      type: 'multiple_choice',
+      text: '¿Qué concepto central propone Albert Camus en su filosofía del absurdo?',
+      options: [
+        'Que la vida carece de sentido inherente y debemos crear el nuestro pese a ello',
+        'Que el suicidio es la respuesta lógica ante la falta de sentido',
+        'Que la religión es el único antídoto contra el absurdo',
+        'Que el ser humano es fundamentalmente irracional'
+      ],
+      correctAnswer: 'Que la vida carece de sentido inherente y debemos crear el nuestro pese a ello',
+      explanation:
+          'Camus propone que hay una tensión irresoluble (el absurdo) entre el deseo humano de sentido y el silencio del universo. La respuesta de Camus no es el suicidio sino la rebelión: vivir plenamente a pesar de ello, como Sísifo feliz.',
+      difficulty: 2,
+      xpReward: 25,
+    ),
+    Question(
+      id: 'phil_019',
+      categoryId: 'philosophy',
+      type: 'multiple_choice',
+      text: '¿Quién fue el principal filósofo estoico romano y autor de las "Meditaciones"?',
+      options: ['Séneca', 'Epicteto', 'Marco Aurelio', 'Cicerón'],
+      correctAnswer: 'Marco Aurelio',
+      explanation:
+          'Marco Aurelio (121-180 d.C.), emperador romano y filósofo estoico, escribió las "Meditaciones" como reflexiones personales sobre la virtud y el autocontrol. Es uno de los textos más influyentes del estoicismo.',
+      difficulty: 1,
+      xpReward: 10,
+    ),
+    Question(
+      id: 'phil_020',
+      categoryId: 'philosophy',
+      type: 'multiple_choice',
+      text: '¿Qué es el utilitarismo en ética?',
+      options: [
+        'La doctrina de que la acción correcta es la que produce el mayor bienestar para el mayor número',
+        'La doctrina de que la moral se basa en el deber y la ley universal',
+        'La creencia de que cada persona debe maximizar su propio placer',
+        'La ética que evalúa las acciones según su conformidad con la virtud'
+      ],
+      correctAnswer: 'La doctrina de que la acción correcta es la que produce el mayor bienestar para el mayor número',
+      explanation:
+          'El utilitarismo, formulado por Jeremy Bentham y desarrollado por John Stuart Mill, sostiene que la acción moralmente correcta es la que maximiza la utilidad (bienestar o felicidad) para el mayor número posible de personas.',
+      difficulty: 2,
+      xpReward: 25,
+    ),
+    Question(
+      id: 'phil_021',
+      categoryId: 'philosophy',
+      type: 'multiple_choice',
+      text: '¿Qué es un silogismo en lógica aristotélica?',
+      options: [
+        'Una paradoja que no tiene solución lógica',
+        'Un argumento deductivo de tres proposiciones: dos premisas y una conclusión',
+        'Una metáfora filosófica para explicar conceptos abstractos',
+        'Un método de razonamiento inductivo basado en casos particulares'
+      ],
+      correctAnswer: 'Un argumento deductivo de tres proposiciones: dos premisas y una conclusión',
+      explanation:
+          'Un silogismo aristotélico es un argumento lógico de tres partes: premisa mayor, premisa menor y conclusión. Ejemplo clásico: "Todos los hombres son mortales. Sócrates es hombre. Por tanto, Sócrates es mortal."',
+      difficulty: 2,
+      xpReward: 25,
+    ),
+    Question(
+      id: 'phil_022',
+      categoryId: 'philosophy',
+      type: 'multiple_choice',
+      text: '¿Cuál es el concepto central de la filosofía budista que significa "sufrimiento" o "insatisfacción"?',
+      options: ['Nirvana', 'Dukkha', 'Karma', 'Dharma'],
+      correctAnswer: 'Dukkha',
+      explanation:
+          'Dukkha (sufrimiento, insatisfacción, impermanencia) es la primera de las Cuatro Nobles Verdades del budismo. Buda enseñaba que el sufrimiento surge del apego y que puede extinguirse siguiendo el Noble Óctuple Sendero.',
+      difficulty: 2,
+      xpReward: 25,
+    ),
+    Question(
+      id: 'phil_023',
+      categoryId: 'philosophy',
+      type: 'multiple_choice',
+      text: '¿Qué propone John Locke sobre el origen del conocimiento?',
+      options: [
+        'Que nacemos con ideas innatas que la razón desarrolla',
+        'Que la mente es una "tabula rasa" y todo conocimiento viene de la experiencia',
+        'Que el conocimiento viene de la intuición intelectual pura',
+        'Que solo podemos conocer los fenómenos y no las cosas en sí'
+      ],
+      correctAnswer: 'Que la mente es una "tabula rasa" y todo conocimiento viene de la experiencia',
+      explanation:
+          'John Locke, padre del empirismo moderno, sostenía que la mente al nacer es una "tabula rasa" (pizarra en blanco) sin ideas innatas. Todo nuestro conocimiento proviene de la experiencia sensorial y la reflexión sobre ella.',
+      difficulty: 2,
+      xpReward: 25,
+    ),
+    Question(
+      id: 'phil_024',
+      categoryId: 'philosophy',
+      type: 'multiple_choice',
+      text: '¿Qué propone Rousseau sobre el estado natural del ser humano?',
+      options: [
+        'Que el hombre es naturalmente egoísta y necesita leyes para ser civilizado',
+        'Que el hombre es bueno por naturaleza pero la sociedad lo corrompe',
+        'Que el hombre es un ser racional que busca la virtud por instinto',
+        'Que el estado natural es una guerra de todos contra todos'
+      ],
+      correctAnswer: 'Que el hombre es bueno por naturaleza pero la sociedad lo corrompe',
+      explanation:
+          'Rousseau sostenía que el ser humano es naturalmente bueno (el "buen salvaje") y que es la sociedad, con sus instituciones de propiedad y desigualdad, la que corrompe esa bondad original. Esta idea influyó profundamente en la Revolución Francesa.',
+      difficulty: 2,
+      xpReward: 25,
+    ),
+    Question(
+      id: 'phil_025',
+      categoryId: 'philosophy',
+      type: 'multiple_choice',
+      text: '¿Qué distingue al racionalismo del empirismo en epistemología?',
+      options: [
+        'El racionalismo prioriza la razón e ideas innatas; el empirismo prioriza la experiencia sensorial',
+        'El racionalismo estudia la sociedad; el empirismo estudia la naturaleza',
+        'El racionalismo es antiguo; el empirismo es moderno',
+        'El racionalismo es europeo; el empirismo es anglosajón'
+      ],
+      correctAnswer: 'El racionalismo prioriza la razón e ideas innatas; el empirismo prioriza la experiencia sensorial',
+      explanation:
+          'El racionalismo (Descartes, Spinoza, Leibniz) sostiene que la razón y las ideas innatas son la fuente principal del conocimiento. El empirismo (Locke, Hume, Berkeley) defiende que todo conocimiento proviene de la experiencia sensorial.',
+      difficulty: 3,
+      xpReward: 50,
+    ),
+    Question(
+      id: 'phil_026',
+      categoryId: 'philosophy',
+      type: 'true_false',
+      text: 'El nihilismo es la creencia de que la vida carece de valor, sentido o propósito objetivo.',
+      options: ['Verdadero', 'Falso'],
+      correctAnswer: 'Verdadero',
+      explanation:
+          'El nihilismo sostiene que nada tiene valor, sentido o propósito objetivo. Nietzsche analizó el nihilismo como consecuencia de la muerte de Dios y del colapso de los valores absolutos, aunque él mismo proponía superarlo con la voluntad de poder.',
+      difficulty: 1,
+      xpReward: 10,
+    ),
+    Question(
+      id: 'phil_027',
+      categoryId: 'philosophy',
+      type: 'multiple_choice',
+      text: '¿Qué es la fenomenología fundada por Edmund Husserl?',
+      options: [
+        'El estudio de los fenómenos físicos observables en la naturaleza',
+        'El análisis filosófico de la estructura de la experiencia y la conciencia',
+        'El método de observación empírica de las ciencias naturales',
+        'La descripción matemática de los fenómenos cuánticos'
+      ],
+      correctAnswer: 'El análisis filosófico de la estructura de la experiencia y la conciencia',
+      explanation:
+          'La fenomenología, fundada por Edmund Husserl, estudia la estructura de la experiencia consciente tal como aparece a la conciencia, "poniendo entre paréntesis" las suposiciones sobre el mundo externo. Influyó en Heidegger, Sartre y Merleau-Ponty.',
+      difficulty: 3,
+      xpReward: 50,
+    ),
+
+    // =========================================================================
     // LENGUAJE — 16 questions
     // =========================================================================
 
@@ -1543,6 +2607,168 @@ class QuestionService {
       difficulty: 3,
       xpReward: 50,
     ),
+
+    // =========================================================================
+    // LENGUAJE — preguntas adicionales (lang_017 – lang_027)
+    // =========================================================================
+
+    Question(
+      id: 'lang_017',
+      categoryId: 'language',
+      type: 'multiple_choice',
+      text: '¿De qué lengua proviene la palabra "chocolate"?',
+      options: ['Español antiguo', 'Náhuatl', 'Latín', 'Árabe'],
+      correctAnswer: 'Náhuatl',
+      explanation:
+          '"Chocolate" proviene del náhuatl "xocolātl" (xococ = agrio/amargo + ātl = agua), la lengua de los aztecas. Fue adoptado al español tras la Conquista y de ahí pasó a casi todas las lenguas europeas.',
+      difficulty: 2,
+      xpReward: 25,
+    ),
+    Question(
+      id: 'lang_018',
+      categoryId: 'language',
+      type: 'multiple_choice',
+      text: '¿Qué significa la locución latina "carpe diem"?',
+      options: [
+        'Cuida tu camino',
+        'Aprovecha el momento presente',
+        'El tiempo vuela',
+        'La vida es corta'
+      ],
+      correctAnswer: 'Aprovecha el momento presente',
+      explanation:
+          '"Carpe diem" proviene del poeta romano Horacio (Odas, 23 a.C.) y significa literalmente "cosecha el día" o "aprovecha el momento presente". Es una de las frases latinas más citadas en la cultura occidental.',
+      difficulty: 1,
+      xpReward: 10,
+    ),
+    Question(
+      id: 'lang_019',
+      categoryId: 'language',
+      type: 'multiple_choice',
+      text: '¿Qué idioma tiene más palabras en su diccionario oficial?',
+      options: ['Inglés', 'Español', 'Árabe', 'Francés'],
+      correctAnswer: 'Inglés',
+      explanation:
+          'El inglés tiene el mayor número de palabras entre las lenguas con diccionarios completos, con más de 170 000 palabras en uso activo según el Oxford English Dictionary y más de 470 000 entradas en total.',
+      difficulty: 2,
+      xpReward: 25,
+    ),
+    Question(
+      id: 'lang_020',
+      categoryId: 'language',
+      type: 'multiple_choice',
+      text: '¿Cuál es el idioma oficial de Brasil?',
+      options: ['Español', 'Portugués', 'Inglés', 'Tupí-guaraní'],
+      correctAnswer: 'Portugués',
+      explanation:
+          'El portugués es el idioma oficial de Brasil, que fue colonia portuguesa hasta 1822. Brasil es el país más grande de América Latina y el mayor hablante de portugués del mundo, con unos 215 millones de hablantes.',
+      difficulty: 1,
+      xpReward: 10,
+    ),
+    Question(
+      id: 'lang_021',
+      categoryId: 'language',
+      type: 'multiple_choice',
+      text: '¿Qué es un eufemismo?',
+      options: [
+        'Una palabra con etimología griega antigua',
+        'Una expresión suave o agradable usada en lugar de otra más directa o dura',
+        'Una figura retórica que exagera para enfatizar',
+        'Un término técnico de una disciplina especializada'
+      ],
+      correctAnswer: 'Una expresión suave o agradable usada en lugar de otra más directa o dura',
+      explanation:
+          'Un eufemismo sustituye una expresión considerada desagradable, tabú o hiriente por otra más suave. Ejemplos: "pasar a mejor vida" por morir, "persona de la tercera edad" por viejo, "racionalización de personal" por despido.',
+      difficulty: 1,
+      xpReward: 10,
+    ),
+    Question(
+      id: 'lang_022',
+      categoryId: 'language',
+      type: 'multiple_choice',
+      text: '¿Qué significa "in situ" en latín?',
+      options: [
+        'Sin duda alguna',
+        'En el mismo lugar, en el sitio original',
+        'De buena fe',
+        'Al mismo tiempo'
+      ],
+      correctAnswer: 'En el mismo lugar, en el sitio original',
+      explanation:
+          '"In situ" es una locución latina que significa "en el lugar" o "en su sitio original". Se usa en ciencia, arqueología y medicina para referirse a algo estudiado o tratado en su lugar de origen o localización natural.',
+      difficulty: 2,
+      xpReward: 25,
+    ),
+    Question(
+      id: 'lang_023',
+      categoryId: 'language',
+      type: 'multiple_choice',
+      text: '¿Cuántas familias lingüísticas principales existen aproximadamente en el mundo?',
+      options: ['5-10', '20-30', '100-150', '250-300'],
+      correctAnswer: '100-150',
+      explanation:
+          'Los lingüistas identifican entre 100 y 150 familias lingüísticas en el mundo, que agrupan las aproximadas 7 000 lenguas existentes. Las más extendidas son la indoeuropea, la sino-tibetana y la afroasiática.',
+      difficulty: 3,
+      xpReward: 50,
+    ),
+    Question(
+      id: 'lang_024',
+      categoryId: 'language',
+      type: 'multiple_choice',
+      text: '¿Qué es un arcaísmo en lingüística?',
+      options: [
+        'Una palabra de origen extranjero adoptada en otro idioma',
+        'Una palabra o expresión antigua que ya no se usa en el habla cotidiana',
+        'Una palabra nueva creada para nombrar un concepto moderno',
+        'Un préstamo del latín usado en textos académicos'
+      ],
+      correctAnswer: 'Una palabra o expresión antigua que ya no se usa en el habla cotidiana',
+      explanation:
+          'Un arcaísmo es un vocablo o construcción lingüística que perteneció a una época anterior y ha caído en desuso en la lengua hablada moderna, aunque puede aparecer en textos literarios o históricos.',
+      difficulty: 2,
+      xpReward: 25,
+    ),
+    Question(
+      id: 'lang_025',
+      categoryId: 'language',
+      type: 'multiple_choice',
+      text: '¿Cuál es el sustantivo propio del idioma español que más tildes tiene?',
+      options: ['Murciélago', 'Cumpleañero', 'Huésped', 'Ciénaga'],
+      correctAnswer: 'Murciélago',
+      explanation:
+          '"Murciélago" contiene las cinco vocales (a, e, i, o, u) y tiene dos acentos ortográficos implícitos siendo esdrújula. Es además famoso por contener las cinco vocales del español en una sola palabra.',
+      difficulty: 3,
+      xpReward: 50,
+    ),
+    Question(
+      id: 'lang_026',
+      categoryId: 'language',
+      type: 'multiple_choice',
+      text: '¿Cuál es la regla de acentuación de las palabras agudas en español?',
+      options: [
+        'Siempre llevan tilde',
+        'Llevan tilde cuando terminan en vocal, "n" o "s"',
+        'Llevan tilde cuando terminan en consonante excepto "n" y "s"',
+        'Nunca llevan tilde salvo en casos especiales'
+      ],
+      correctAnswer: 'Llevan tilde cuando terminan en vocal, "n" o "s"',
+      explanation:
+          'Las palabras agudas (acento en la última sílaba) llevan tilde cuando terminan en vocal, "n" o "s": sofá, canción, interés. Si terminan en otra consonante, no llevan tilde: reloj, ciudad, papel.',
+      difficulty: 2,
+      xpReward: 25,
+    ),
+    Question(
+      id: 'lang_027',
+      categoryId: 'language',
+      type: 'true_false',
+      text: 'El esperanto es una lengua artificial creada por Ludwig Lazarus Zamenhof en el siglo XIX.',
+      options: ['Verdadero', 'Falso'],
+      correctAnswer: 'Verdadero',
+      explanation:
+          'El esperanto fue creado por el médico polaco Ludwig Lazarus Zamenhof en 1887 como lengua internacional auxiliar. Hoy lo hablan entre 1 y 2 millones de personas en todo el mundo y tiene una rica literatura.',
+      difficulty: 2,
+      xpReward: 25,
+    ),
   ];
 
   // ---------------------------------------------------------------------------
@@ -1627,33 +2853,48 @@ class QuestionService {
     return shuffled.take(count).toList();
   }
 
-  /// Returns questions for a given [ChallengeMode].
+  // ---------------------------------------------------------------------------
+  // Mode-aware API
+  // ---------------------------------------------------------------------------
+
+  /// Returns questions configured for the given [ChallengeMode].
   ///
-  /// - daily: 10 seeded questions (3 easy, 4 medium, 3 hard)
-  /// - speed: 15 random questions shuffled from all categories
-  /// - survival: all questions shuffled (endless pool)
-  /// - marathon: all questions for the given categoryId (or all if null)
+  /// [preferredCategories] is used to weight daily and speed selections.
+  /// [categoryId] is required for marathon mode.
   List<Question> getForMode(
     ChallengeMode mode,
     List<String> preferredCategories, {
     String? categoryId,
   }) {
-    final seed = DateTime.now().millisecondsSinceEpoch ~/ 60000;
     switch (mode) {
       case ChallengeMode.daily:
         return getDailyChallenge(preferredCategories);
       case ChallengeMode.speed:
-        final all = List<Question>.of(_allQuestions);
-        return _seededShuffle(all, seed).take(15).toList();
+        return _getSpeedModeQuestions(preferredCategories);
       case ChallengeMode.survival:
-        final all = List<Question>.of(_allQuestions);
-        return _seededShuffle(all, seed);
+        return _getSurvivalModeQuestions(preferredCategories);
       case ChallengeMode.marathon:
-        if (categoryId != null && categoryId.isNotEmpty) {
-          return _seededShuffle(getByCategory(categoryId), seed);
-        }
-        return _seededShuffle(List<Question>.of(_allQuestions), seed);
+        return categoryId != null ? getByCategory(categoryId) : getAll();
     }
+  }
+
+  /// 15 questions weighted toward easy-medium for fast responses.
+  List<Question> _getSpeedModeQuestions(List<String> preferredCategories) {
+    final seed = DateTime.now().millisecondsSinceEpoch ~/ 60000;
+    final easy = _seededShuffle(getByDifficulty(1), seed).take(7).toList();
+    final medium = _seededShuffle(getByDifficulty(2), seed + 1).take(8).toList();
+    final combined = [...easy, ...medium];
+    return _seededShuffle(combined, seed + 2).take(15).toList();
+  }
+
+  /// All questions shuffled for survival mode (infinite until game over).
+  List<Question> _getSurvivalModeQuestions(List<String> preferredCategories) {
+    final seed = DateTime.now().millisecondsSinceEpoch ~/ 60000;
+    // Sort by ascending difficulty so it gets progressively harder
+    final easy = _seededShuffle(getByDifficulty(1), seed);
+    final medium = _seededShuffle(getByDifficulty(2), seed + 1);
+    final hard = _seededShuffle(getByDifficulty(3), seed + 2);
+    return [...easy, ...medium, ...hard];
   }
 
   // ---------------------------------------------------------------------------

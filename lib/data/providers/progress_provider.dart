@@ -161,14 +161,24 @@ class UserProgress {
 // ---------------------------------------------------------------------------
 
 class ProgressNotifier extends Notifier<UserProgress> {
-  static const _prefsKey = 'user_progress';
+  static const _prefsKey = 'user_progress_v2';
+  static const _legacyKey = 'user_progress';
 
   SharedPreferences get _prefs => ref.read(sharedPreferencesProvider);
 
   @override
   UserProgress build() {
     final raw = _prefs.getString(_prefsKey);
-    if (raw == null) return const UserProgress();
+    // v1 → v2 migration: if no v2 data, try reading v1 data
+    if (raw == null) {
+      final legacyRaw = _prefs.getString(_legacyKey);
+      if (legacyRaw != null) {
+        try {
+          return UserProgress.fromJson(jsonDecode(legacyRaw) as Map<String, dynamic>);
+        } catch (_) {}
+      }
+      return const UserProgress();
+    }
     try {
       return UserProgress.fromJson(jsonDecode(raw) as Map<String, dynamic>);
     } catch (_) {
