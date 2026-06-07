@@ -1,25 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:razor_mind/data/models/challenge_mode.dart';
 import 'package:razor_mind/features/challenge/challenge_screen.dart';
+import 'package:razor_mind/features/challenge/mode_select_screen.dart';
 import 'package:razor_mind/features/home/home_screen.dart';
 import 'package:razor_mind/features/learn/learn_screen.dart';
 import 'package:razor_mind/features/onboarding/onboarding_screen.dart';
 import 'package:razor_mind/features/profile/profile_screen.dart';
+import 'package:razor_mind/features/ranking/ranking_screen.dart';
 import 'package:razor_mind/features/splash/splash_screen.dart';
 import 'package:razor_mind/features/stats/stats_screen.dart';
 import 'package:razor_mind/shared/widgets/app_bottom_nav.dart';
 
-// ---------------------------------------------------------------------------
-// Navigator keys
-// ---------------------------------------------------------------------------
-
 final _rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
 final _shellNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'shell');
-
-// ---------------------------------------------------------------------------
-// Shell index mapping
-// ---------------------------------------------------------------------------
 
 const _shellRoutes = ['/home', '/learn', '/stats', '/profile'];
 
@@ -30,41 +25,45 @@ int _locationToIndex(String location) {
   return 0;
 }
 
-// ---------------------------------------------------------------------------
-// Provider
-// ---------------------------------------------------------------------------
-
 final routerProvider = Provider<GoRouter>((ref) {
   return GoRouter(
     navigatorKey: _rootNavigatorKey,
     initialLocation: '/',
     debugLogDiagnostics: false,
     routes: [
-      // -----------------------------------------------------------------------
-      // Splash
-      // -----------------------------------------------------------------------
       GoRoute(
         path: '/',
         parentNavigatorKey: _rootNavigatorKey,
         builder: (context, state) => const SplashScreen(),
       ),
-
-      // -----------------------------------------------------------------------
-      // Onboarding (full screen, no shell)
-      // -----------------------------------------------------------------------
       GoRoute(
         path: '/onboarding',
         parentNavigatorKey: _rootNavigatorKey,
         builder: (context, state) => const OnboardingScreen(),
       ),
-
-      // -----------------------------------------------------------------------
-      // Challenge (full screen, no shell)
-      // -----------------------------------------------------------------------
+      GoRoute(
+        path: '/modes',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const ModeSelectScreen(),
+      ),
+      GoRoute(
+        path: '/ranking',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const RankingScreen(),
+      ),
       GoRoute(
         path: '/challenge',
         parentNavigatorKey: _rootNavigatorKey,
-        builder: (context, state) => const ChallengeScreen(),
+        builder: (context, state) {
+          final params = state.uri.queryParameters;
+          final modeStr = params['mode'] ?? 'daily';
+          final mode = ChallengeMode.values.firstWhere(
+            (m) => m.name == modeStr,
+            orElse: () => ChallengeMode.daily,
+          );
+          final categoryId = params['categoryId'];
+          return ChallengeScreen(mode: mode, categoryId: categoryId);
+        },
         routes: [
           GoRoute(
             path: 'result',
@@ -75,16 +74,14 @@ final routerProvider = Provider<GoRouter>((ref) {
                 score: int.tryParse(params['score'] ?? '0') ?? 0,
                 total: int.tryParse(params['total'] ?? '10') ?? 10,
                 xpEarned: int.tryParse(params['xpEarned'] ?? '0') ?? 0,
+                rankPointsEarned: int.tryParse(params['rankPoints'] ?? '0') ?? 0,
                 categoryId: params['categoryId'] ?? 'general',
+                mode: params['mode'] ?? 'daily',
               );
             },
           ),
         ],
       ),
-
-      // -----------------------------------------------------------------------
-      // Shell (bottom nav)
-      // -----------------------------------------------------------------------
       ShellRoute(
         navigatorKey: _shellNavigatorKey,
         builder: (context, state, child) {
@@ -94,11 +91,13 @@ final routerProvider = Provider<GoRouter>((ref) {
         routes: [
           GoRoute(
             path: '/home',
-            pageBuilder: (context, state) => const NoTransitionPage(child: HomeScreen()),
+            pageBuilder: (context, state) =>
+                const NoTransitionPage(child: HomeScreen()),
           ),
           GoRoute(
             path: '/learn',
-            pageBuilder: (context, state) => const NoTransitionPage(child: LearningScreen()),
+            pageBuilder: (context, state) =>
+                const NoTransitionPage(child: LearningScreen()),
             routes: [
               GoRoute(
                 path: ':categoryId',
@@ -111,21 +110,19 @@ final routerProvider = Provider<GoRouter>((ref) {
           ),
           GoRoute(
             path: '/stats',
-            pageBuilder: (context, state) => const NoTransitionPage(child: StatsScreen()),
+            pageBuilder: (context, state) =>
+                const NoTransitionPage(child: StatsScreen()),
           ),
           GoRoute(
             path: '/profile',
-            pageBuilder: (context, state) => const NoTransitionPage(child: ProfileScreen()),
+            pageBuilder: (context, state) =>
+                const NoTransitionPage(child: ProfileScreen()),
           ),
         ],
       ),
     ],
   );
 });
-
-// ---------------------------------------------------------------------------
-// Shell scaffold
-// ---------------------------------------------------------------------------
 
 class _ShellScaffold extends StatelessWidget {
   const _ShellScaffold({

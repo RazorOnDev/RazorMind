@@ -1,5 +1,4 @@
 class LevelUtils {
-  // XP thresholds per level (index 0 = level 1, index 1 = level 2, etc.)
   static const List<int> _thresholds = [
     0, 100, 250, 500, 900, 1400, 2100, 3000, 4200, 5700,
     7500, 9600, 12100, 15000, 18500, 22500, 27000, 32000, 38000, 45000,
@@ -41,6 +40,9 @@ class LevelUtils {
     final idx = (level - 1).clamp(0, titles.length - 1);
     return titles[idx];
   }
+
+  static int xpForCurrentLevel(int xp) => getXpForLevel(getLevel(xp));
+  static int xpForNextLevel(int xp) => getXpForNextLevel(getLevel(xp));
 
   static int calculateXpReward({
     required int correctAnswers,
