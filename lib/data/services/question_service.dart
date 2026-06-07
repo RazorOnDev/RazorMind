@@ -1,3 +1,4 @@
+import 'package:razor_mind/data/models/challenge_mode.dart';
 import 'package:razor_mind/data/models/question.dart';
 
 class QuestionService {
@@ -1624,6 +1625,35 @@ class QuestionService {
     final seed = DateTime.now().millisecondsSinceEpoch ~/ 60000;
     final shuffled = _seededShuffle(pool, seed);
     return shuffled.take(count).toList();
+  }
+
+  /// Returns questions for a given [ChallengeMode].
+  ///
+  /// - daily: 10 seeded questions (3 easy, 4 medium, 3 hard)
+  /// - speed: 15 random questions shuffled from all categories
+  /// - survival: all questions shuffled (endless pool)
+  /// - marathon: all questions for the given categoryId (or all if null)
+  List<Question> getForMode(
+    ChallengeMode mode,
+    List<String> preferredCategories, {
+    String? categoryId,
+  }) {
+    final seed = DateTime.now().millisecondsSinceEpoch ~/ 60000;
+    switch (mode) {
+      case ChallengeMode.daily:
+        return getDailyChallenge(preferredCategories);
+      case ChallengeMode.speed:
+        final all = List<Question>.of(_allQuestions);
+        return _seededShuffle(all, seed).take(15).toList();
+      case ChallengeMode.survival:
+        final all = List<Question>.of(_allQuestions);
+        return _seededShuffle(all, seed);
+      case ChallengeMode.marathon:
+        if (categoryId != null && categoryId.isNotEmpty) {
+          return _seededShuffle(getByCategory(categoryId), seed);
+        }
+        return _seededShuffle(List<Question>.of(_allQuestions), seed);
+    }
   }
 
   // ---------------------------------------------------------------------------

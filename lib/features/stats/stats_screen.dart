@@ -1,8 +1,13 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:razor_mind/core/constants/app_colors.dart';
 import 'package:razor_mind/core/utils/level_utils.dart';
+import 'package:razor_mind/core/utils/rank_utils.dart';
 import 'package:razor_mind/data/models/category_model.dart';
 import 'package:razor_mind/data/providers/progress_provider.dart';
 import 'package:razor_mind/features/stats/widgets/stat_card.dart';
@@ -28,6 +33,23 @@ class StatsScreen extends ConsumerWidget {
             ? AppColors.secondary
             : AppColors.error;
 
+    // Parse activity dates for the streak calendar
+    final activeDays = progress.activityDates.map((s) {
+      try {
+        return DateTime.parse(s);
+      } catch (_) {
+        return null;
+      }
+    }).whereType<DateTime>().toList();
+
+    // Sort categories by XP descending
+    final sortedCategories = List<CategoryModel>.from(AppCategories.all)
+      ..sort((a, b) {
+        final xpA = progress.categoryXP[a.id] ?? 0;
+        final xpB = progress.categoryXP[b.id] ?? 0;
+        return xpB.compareTo(xpA);
+      });
+
     final achievements = [
       _Achievement(
         emoji: '🎯',
@@ -38,26 +60,41 @@ class StatsScreen extends ConsumerWidget {
       _Achievement(
         emoji: '🔥',
         label: 'En Racha',
-        desc: 'Alcanza 7 días seguidos',
+        desc: '7 días seguidos',
         unlocked: progress.currentStreak >= 7,
       ),
       _Achievement(
         emoji: '📚',
         label: 'Erudito',
-        desc: 'Responde 100 preguntas',
+        desc: '100 preguntas respondidas',
         unlocked: progress.totalQuestionsAnswered >= 100,
       ),
       _Achievement(
         emoji: '⭐',
-        label: 'Perfecto',
-        desc: 'Logra >90% de precisión',
-        unlocked: progress.correctRate >= 0.9 && progress.totalQuestionsAnswered >= 10,
+        label: 'Maestro',
+        desc: '>90% precisión (50+ preguntas)',
+        unlocked: progress.correctRate >= 0.9 && progress.totalQuestionsAnswered >= 50,
       ),
       _Achievement(
         emoji: '🌍',
         label: 'Explorador',
-        desc: 'Responde 30 preguntas',
-        unlocked: progress.totalQuestionsAnswered >= 30,
+        desc: 'XP en 5+ categorías',
+        unlocked: progress.categoryXP.values.where((v) => v > 0).length >= 5,
+      ),
+      _Achievement(
+        emoji: '💎',
+        label: 'Diamante',
+        desc: 'Alcanza rango Diamante',
+        unlocked: progress.rankPoints >= 7500,
+      ),
+      _Achievement(
+        emoji: '⚡',
+        label: 'Velocista',
+        desc: 'Modo Velocidad 5 veces',
+        unlocked: progress.completedChallengeIds
+                .where((id) => id.contains('speed'))
+                .length >=
+            5,
       ),
     ];
 
@@ -65,7 +102,7 @@ class StatsScreen extends ConsumerWidget {
       backgroundColor: AppColors.background,
       body: CustomScrollView(
         slivers: [
-          // Header
+          // ─── Header ────────────────────────────────────────────────────────
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.fromLTRB(24, 60, 24, 0),
@@ -90,10 +127,18 @@ class StatsScreen extends ConsumerWidget {
             ),
           ),
 
-          // Overall stats row
+          // ─── Rank Card ─────────────────────────────────────────────────
           SliverToBoxAdapter(
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(20, 24, 20, 0),
+              padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+              child: _RankCard(rankPoints: progress.rankPoints),
+            ).animate(delay: 80.ms).fadeIn(duration: 500.ms).slideY(begin: 0.08, duration: 500.ms),
+          ),
+
+          // ─── Overall Stats Row ──────────────────────────────────────────
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(20, 16, 20, 0),
               child: Row(
                 children: [
                   Expanded(
@@ -131,7 +176,7 @@ class StatsScreen extends ConsumerWidget {
             ),
           ),
 
-          // Level progress card
+          // ─── Level Progress Card ────────────────────────────────────────
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.fromLTRB(20, 16, 20, 0),
@@ -142,98 +187,80 @@ class StatsScreen extends ConsumerWidget {
                 levelProgress: levelProgress,
                 xpForCurrent: xpForCurrent,
                 xpForNext: xpForNext,
-              )
-                  .animate(delay: 200.ms)
-                  .fadeIn(duration: 500.ms)
-                  .slideY(begin: 0.08, duration: 500.ms),
+              ).animate(delay: 200.ms).fadeIn(duration: 500.ms).slideY(begin: 0.08, duration: 500.ms),
             ),
           ),
 
-          // Streak calendar
+          // ─── Streak Calendar ───────────────────────────────────────────
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
               child: _SectionCard(
                 title: 'Actividad — últimos 30 días',
-                child: StreakCalendar(activityDates: const []),
-              )
-                  .animate(delay: 280.ms)
-                  .fadeIn(duration: 500.ms)
-                  .slideY(begin: 0.08, duration: 500.ms),
+                child: StreakCalendar(activityDates: activeDays),
+              ).animate(delay: 280.ms).fadeIn(duration: 500.ms).slideY(begin: 0.08, duration: 500.ms),
             ),
           ),
 
-          // Category performance
+          // ─── Category Performance (Horizontal Bar Chart) ───────────────
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
               child: _SectionCard(
-                title: 'Categorías',
+                title: 'Rendimiento por categoría',
                 child: Column(
-                  children: AppCategories.all.asMap().entries.map((e) {
+                  children: sortedCategories.asMap().entries.map((e) {
+                    final cat = e.value;
+                    final accuracy = progress.categoryAccuracy(cat.id);
+                    final xp = progress.categoryXP[cat.id] ?? 0;
+                    final accuracyPctCat = (accuracy * 100).round();
                     return Padding(
-                      padding: const EdgeInsets.only(bottom: 10),
+                      padding: const EdgeInsets.only(bottom: 12),
                       child: _CategoryBar(
-                        category: e.value,
-                        xp: 0,
-                        progress: 0.0,
+                        category: cat,
+                        xp: xp,
+                        accuracy: accuracy,
+                        accuracyPct: accuracyPctCat,
                         index: e.key,
                       ),
                     );
                   }).toList(),
                 ),
-              )
-                  .animate(delay: 360.ms)
-                  .fadeIn(duration: 500.ms)
-                  .slideY(begin: 0.08, duration: 500.ms),
+              ).animate(delay: 360.ms).fadeIn(duration: 500.ms).slideY(begin: 0.08, duration: 500.ms),
             ),
           ),
 
-          // Challenge history
+          // ─── Category Accuracy Rings ────────────────────────────────────
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
               child: _SectionCard(
-                title: 'Historial de desafíos',
-                child: Column(
-                  children: [
-                    _HistoryRow(
-                      icon: '🏆',
-                      label: 'Mejor racha',
-                      value: '${progress.bestStreak} días',
-                      color: AppColors.secondary,
-                    ),
-                    const SizedBox(height: 10),
-                    _HistoryRow(
-                      icon: '📝',
-                      label: 'Preguntas respondidas',
-                      value: '${progress.totalQuestionsAnswered}',
-                      color: AppColors.primary,
-                    ),
-                    const SizedBox(height: 10),
-                    _HistoryRow(
-                      icon: '✅',
-                      label: 'Respuestas correctas',
-                      value: '${progress.totalCorrectAnswers}',
-                      color: AppColors.correct,
-                    ),
-                    const SizedBox(height: 10),
-                    _HistoryRow(
-                      icon: '🔥',
-                      label: 'Racha actual',
-                      value: '${progress.currentStreak} días',
-                      color: AppColors.secondary,
-                    ),
-                  ],
+                title: 'Precisión por categoría',
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: AppCategories.all.asMap().entries.map((e) {
+                      final cat = e.value;
+                      final accuracy = progress.categoryAccuracy(cat.id);
+                      return Padding(
+                        padding: const EdgeInsets.only(right: 16),
+                        child: _CircularAccuracy(
+                          percent: accuracy,
+                          color: cat.color,
+                          emoji: cat.emoji,
+                          name: cat.name,
+                        ).animate(
+                          delay: Duration(milliseconds: 50 * e.key),
+                        ).fadeIn(duration: 300.ms).scaleXY(begin: 0.8, duration: 300.ms),
+                      );
+                    }).toList(),
+                  ),
                 ),
-              )
-                  .animate(delay: 440.ms)
-                  .fadeIn(duration: 500.ms)
-                  .slideY(begin: 0.08, duration: 500.ms),
+              ).animate(delay: 440.ms).fadeIn(duration: 500.ms).slideY(begin: 0.08, duration: 500.ms),
             ),
           ),
 
-          // Achievements
+          // ─── Achievements ───────────────────────────────────────────────
           SliverToBoxAdapter(
             child: Padding(
               padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
@@ -254,15 +281,156 @@ class StatsScreen extends ConsumerWidget {
                     index: i,
                   ),
                 ),
-              )
-                  .animate(delay: 520.ms)
-                  .fadeIn(duration: 500.ms)
-                  .slideY(begin: 0.08, duration: 500.ms),
+              ).animate(delay: 520.ms).fadeIn(duration: 500.ms).slideY(begin: 0.08, duration: 500.ms),
+            ),
+          ),
+
+          // ─── Personal Records ────────────────────────────────────────────
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+              child: _SectionCard(
+                title: 'Récords personales',
+                child: Column(
+                  children: [
+                    _RecordRow(
+                      icon: '🏆',
+                      label: 'Racha más larga',
+                      value: '${progress.bestStreak} días',
+                      color: AppColors.secondary,
+                    ),
+                    const SizedBox(height: 10),
+                    _RecordRow(
+                      icon: '✅',
+                      label: 'Respuestas seguidas correctas',
+                      value: '${progress.longestCorrectStreak}',
+                      color: AppColors.correct,
+                    ),
+                    const SizedBox(height: 10),
+                    _RecordRow(
+                      icon: '⚡',
+                      label: 'XP total ganado',
+                      value: '${progress.totalXp} XP',
+                      color: AppColors.primary,
+                    ),
+                    const SizedBox(height: 10),
+                    _RecordRow(
+                      icon: '🎯',
+                      label: 'Desafíos completados',
+                      value: '${progress.completedChallengeIds.length}',
+                      color: AppColors.primaryLight,
+                    ),
+                  ],
+                ),
+              ).animate(delay: 600.ms).fadeIn(duration: 500.ms).slideY(begin: 0.08, duration: 500.ms),
             ),
           ),
 
           const SliverToBoxAdapter(child: SizedBox(height: 40)),
         ],
+      ),
+    );
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Rank Card
+// ─────────────────────────────────────────────────────────────────────────────
+
+class _RankCard extends StatelessWidget {
+  const _RankCard({required this.rankPoints});
+
+  final int rankPoints;
+
+  @override
+  Widget build(BuildContext context) {
+    final rankName = RankUtils.getRankName(rankPoints);
+    final rankEmoji = RankUtils.getRankEmoji(rankPoints);
+    final rankColor = RankUtils.getRankColor(rankPoints);
+    final rankProgress = RankUtils.getRankProgress(rankPoints);
+    final nextRankName = RankUtils.getNextRankName(rankPoints);
+
+    return GestureDetector(
+      onTap: () {
+        HapticFeedback.lightImpact();
+        context.push('/ranking');
+      },
+      child: Container(
+        padding: const EdgeInsets.all(18),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              rankColor.withOpacity(0.18),
+              AppColors.card,
+            ],
+          ),
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: rankColor.withOpacity(0.35), width: 1.5),
+          boxShadow: [
+            BoxShadow(
+              color: rankColor.withOpacity(0.12),
+              blurRadius: 20,
+              offset: const Offset(0, 6),
+            ),
+          ],
+        ),
+        child: Row(
+          children: [
+            Text(rankEmoji, style: const TextStyle(fontSize: 36)),
+            const SizedBox(width: 14),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        rankName,
+                        style: TextStyle(
+                          color: rankColor,
+                          fontWeight: FontWeight.w800,
+                          fontSize: 18,
+                        ),
+                      ),
+                      const SizedBox(width: 6),
+                      Text(
+                        '· $rankPoints pts',
+                        style: const TextStyle(
+                          color: AppColors.textSecondary,
+                          fontSize: 13,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(4),
+                    child: LinearProgressIndicator(
+                      value: rankProgress.clamp(0.0, 1.0),
+                      minHeight: 6,
+                      backgroundColor: AppColors.border,
+                      valueColor: AlwaysStoppedAnimation<Color>(rankColor),
+                    ),
+                  ),
+                  if (nextRankName != null) ...[
+                    const SizedBox(height: 4),
+                    Text(
+                      'Siguiente: $nextRankName',
+                      style: const TextStyle(
+                        color: AppColors.textTertiary,
+                        fontSize: 11,
+                      ),
+                    ),
+                  ],
+                ],
+              ),
+            ),
+            const SizedBox(width: 8),
+            const Icon(Icons.chevron_right_rounded, color: AppColors.textTertiary),
+          ],
+        ),
       ),
     );
   }
@@ -439,27 +607,30 @@ class _SectionCard extends StatelessWidget {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Category Bar
+// Category Bar (Horizontal progress bar with accuracy + XP)
 // ─────────────────────────────────────────────────────────────────────────────
 
 class _CategoryBar extends StatelessWidget {
   const _CategoryBar({
     required this.category,
     required this.xp,
-    required this.progress,
+    required this.accuracy,
+    required this.accuracyPct,
     required this.index,
   });
 
   final CategoryModel category;
   final int xp;
-  final double progress;
+  final double accuracy;
+  final int accuracyPct;
   final int index;
 
   @override
   Widget build(BuildContext context) {
+    final hasData = xp > 0 || accuracy > 0;
     return Row(
       children: [
-        Text(category.emoji, style: const TextStyle(fontSize: 18)),
+        Text(category.emoji, style: const TextStyle(fontSize: 20)),
         const SizedBox(width: 10),
         Expanded(
           child: Column(
@@ -476,26 +647,48 @@ class _CategoryBar extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                     ),
                   ),
-                  Text(
-                    '$xp XP',
-                    style: TextStyle(
-                      color: category.color,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w700,
-                    ),
+                  Row(
+                    children: [
+                      Text(
+                        hasData ? '$accuracyPct%' : '—',
+                        style: TextStyle(
+                          color: hasData ? category.color : AppColors.textTertiary,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      const SizedBox(width: 6),
+                      Text(
+                        hasData ? '$xp XP' : 'Sin datos',
+                        style: TextStyle(
+                          color: hasData ? AppColors.textSecondary : AppColors.textTertiary,
+                          fontSize: 11,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
-              const SizedBox(height: 4),
+              const SizedBox(height: 5),
               ClipRRect(
                 borderRadius: BorderRadius.circular(3),
                 child: LinearProgressIndicator(
-                  value: progress,
-                  minHeight: 5,
+                  value: hasData ? accuracy.clamp(0.0, 1.0) : 0.0,
+                  minHeight: 6,
                   backgroundColor: AppColors.border,
-                  valueColor: AlwaysStoppedAnimation<Color>(category.color),
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    hasData ? category.color : AppColors.textTertiary.withOpacity(0.3),
+                  ),
                 ),
               ),
+              if (!hasData)
+                const Padding(
+                  padding: EdgeInsets.only(top: 3),
+                  child: Text(
+                    'Sin datos aún',
+                    style: TextStyle(color: AppColors.textTertiary, fontSize: 10),
+                  ),
+                ),
             ],
           ),
         ),
@@ -508,53 +701,115 @@ class _CategoryBar extends StatelessWidget {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// History Row
+// Circular Accuracy Ring (Custom Painter)
 // ─────────────────────────────────────────────────────────────────────────────
 
-class _HistoryRow extends StatelessWidget {
-  const _HistoryRow({
-    required this.icon,
-    required this.label,
-    required this.value,
+class _CircularAccuracy extends StatelessWidget {
+  const _CircularAccuracy({
+    required this.percent,
     required this.color,
+    required this.emoji,
+    required this.name,
   });
 
-  final String icon;
-  final String label;
-  final String value;
+  final double percent; // 0.0 to 1.0
   final Color color;
+  final String emoji;
+  final String name;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
-        Container(
-          width: 34,
-          height: 34,
-          decoration: BoxDecoration(
-            color: color.withOpacity(0.12),
-            borderRadius: BorderRadius.circular(9),
-          ),
-          child: Center(child: Text(icon, style: const TextStyle(fontSize: 16))),
-        ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: Text(
-            label,
-            style: const TextStyle(color: AppColors.textSecondary, fontSize: 14),
+        SizedBox(
+          width: 64,
+          height: 64,
+          child: CustomPaint(
+            painter: _RingPainter(
+              percent: percent.clamp(0.0, 1.0),
+              color: color,
+              backgroundColor: AppColors.border,
+            ),
+            child: Center(
+              child: Text(emoji, style: const TextStyle(fontSize: 22)),
+            ),
           ),
         ),
+        const SizedBox(height: 6),
         Text(
-          value,
+          percent > 0 ? '${(percent * 100).round()}%' : '—',
           style: TextStyle(
-            color: color,
+            color: percent > 0 ? color : AppColors.textTertiary,
             fontWeight: FontWeight.w700,
-            fontSize: 14,
+            fontSize: 12,
+          ),
+        ),
+        const SizedBox(height: 2),
+        SizedBox(
+          width: 64,
+          child: Text(
+            name,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              color: AppColors.textTertiary,
+              fontSize: 9,
+            ),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
           ),
         ),
       ],
     );
   }
+}
+
+class _RingPainter extends CustomPainter {
+  _RingPainter({
+    required this.percent,
+    required this.color,
+    required this.backgroundColor,
+  });
+
+  final double percent;
+  final Color color;
+  final Color backgroundColor;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final strokeWidth = 5.0;
+    final center = Offset(size.width / 2, size.height / 2);
+    final radius = (size.width / 2) - strokeWidth / 2;
+    final rect = Rect.fromCircle(center: center, radius: radius);
+
+    // Background ring
+    final bgPaint = Paint()
+      ..color = backgroundColor
+      ..strokeWidth = strokeWidth
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round;
+    canvas.drawCircle(center, radius, bgPaint);
+
+    // Progress arc
+    if (percent > 0) {
+      final fgPaint = Paint()
+        ..color = color
+        ..strokeWidth = strokeWidth
+        ..style = PaintingStyle.stroke
+        ..strokeCap = StrokeCap.round;
+      canvas.drawArc(
+        rect,
+        -math.pi / 2,        // start at top
+        2 * math.pi * percent, // sweep angle
+        false,
+        fgPaint,
+      );
+    }
+  }
+
+  @override
+  bool shouldRepaint(_RingPainter old) =>
+      old.percent != percent || old.color != color;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -642,5 +897,55 @@ class _AchievementBadge extends StatelessWidget {
         .animate(delay: Duration(milliseconds: 60 * index))
         .fadeIn(duration: 300.ms)
         .scaleXY(begin: 0.85, duration: 300.ms, curve: Curves.easeOut);
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Record Row
+// ─────────────────────────────────────────────────────────────────────────────
+
+class _RecordRow extends StatelessWidget {
+  const _RecordRow({
+    required this.icon,
+    required this.label,
+    required this.value,
+    required this.color,
+  });
+
+  final String icon;
+  final String label;
+  final String value;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Container(
+          width: 34,
+          height: 34,
+          decoration: BoxDecoration(
+            color: color.withOpacity(0.12),
+            borderRadius: BorderRadius.circular(9),
+          ),
+          child: Center(child: Text(icon, style: const TextStyle(fontSize: 16))),
+        ),
+        const SizedBox(width: 12),
+        Expanded(
+          child: Text(
+            label,
+            style: const TextStyle(color: AppColors.textSecondary, fontSize: 14),
+          ),
+        ),
+        Text(
+          value,
+          style: TextStyle(
+            color: color,
+            fontWeight: FontWeight.w700,
+            fontSize: 14,
+          ),
+        ),
+      ],
+    );
   }
 }
